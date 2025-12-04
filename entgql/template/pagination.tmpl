@@ -580,7 +580,7 @@ type {{ $order }} struct {
 
 // {{ $defaultOrder }} is the default ordering of {{ $node.Name }}.
 var {{ $defaultOrder }} = &{{ $order }}{
-	Direction: entgql.OrderDirectionAsc,
+	Direction: {{ if $node.Annotations.OrderDirectionDesc }}entgql.OrderDirectionDesc{{ else }}entgql.OrderDirectionAsc{{ end }},
 	Field: &{{ $orderField }}{
 		Value: func({{ $r }} *{{ $name }}) (ent.Value, error) {
 			return {{ $r }}.ID, nil
